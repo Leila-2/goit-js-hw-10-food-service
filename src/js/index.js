@@ -46,3 +46,4 @@ function themeSwitcher() {
 //MENU CREATOR
 const menuCreator = menuTemplate(menu);
 list.insertAdjacentHTML('beforeend', menuCreator)
+//console.log(menuCreator)
