@@ -14,33 +14,32 @@ const Theme = {
 const body = document.querySelector('body');
 const list = document.querySelector('.js-menu');
 const changeTheme = document.getElementById('theme-switch-toggle');
-//по умолчанию
-body.classList.add(Theme.LIGHT)
 
+//по умолчанию
+body.classList.add(
+    localStorage.getItem('theme') === null ? Theme.LIGHT : localStorage.getItem('theme'),
+);
+
+if (body.classList.value === Theme.DARK) {
+    changeTheme.checked = true;
+}
 
 // СЛУШАТЕЛИ
 changeTheme.addEventListener('change', themeSwitcher)
 
 //THEME SWITCHER
-function themeSwitcher() {
-    if (body.classList.contains(Theme.LIGHT)) {
-        body.classList.remove(Theme.LIGHT)
-        localStorage.removeItem("theme", "LIGHT")
-        body.classList.add(Theme.DARK)
-        localStorage.setItem("theme", "DARK")
+function themeSwitcher(event) {
+    if (event.target.checked) {
+        body.classList.add(Theme.DARK);
+        localStorage.setItem('theme', Theme.DARK);
+        body.classList.remove(Theme.LIGHT);
 
-        changeTheme.checked = true;
+        return;
     }
 
-    else {
-
-        body.classList.remove(Theme.DARK)
-        localStorage.removeItem("theme", "DARK")
-        body.classList.add(Theme.LIGHT)
-        localStorage.setItem("theme", "LIGHT")
-        //changeTheme.checked = false;
-    }
-
+    body.classList.add(Theme.LIGHT);
+    localStorage.setItem('theme', Theme.LIGHT);
+    body.classList.remove(Theme.DARK);
 }
 
 //MENU CREATOR
